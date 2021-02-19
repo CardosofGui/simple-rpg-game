@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity_game"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bem-vindo {Usuario} - Classe {Classe}"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:layout_alignParentTop="true"
+        android:id="@+id/txtTitulo"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Atk:          Def:          Exp. Total:"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:layout_below="@+id/txtTitulo"
+        android:id="@+id/txtStats"
+        />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtStats"
+        android:layout_centerInParent="true"
+        android:src="@drawable/guerreiro"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upar Atk"
+            android:id="@+id/btnUparAtk"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upar Def"
+            android:id="@+id/btnUparDef"
+            android:layout_toRightOf="@+id/btnUparAtk"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Boss"
+            android:id="@+id/btnEnfrentarBoss"
+            android:layout_toRightOf="@+id/btnUparDef"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>
