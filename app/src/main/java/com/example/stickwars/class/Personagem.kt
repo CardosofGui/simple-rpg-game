@@ -1,14 +1,10 @@
 package com.example.stickwars.`class`
 
 abstract class Personagem(
-    val nome:String,
-    var forcaStats:Int,
-    var defStats:Int,
-    var expTotal:Int
+    val nome:String
 ){
-    abstract fun evoluirForca():Int
 
-    abstract fun evoluirDefesa():Int
+    abstract fun evoluirForca()
+    abstract fun evoluirDefesa()
 
-    constructor(nome: String)
 }
