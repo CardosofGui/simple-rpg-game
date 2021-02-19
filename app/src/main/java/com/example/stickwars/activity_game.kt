@@ -39,6 +39,7 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
         txtInfo.setText("Bem vindo ${Usuario.nome} - Classe ${Usuario.classe}")
 
         btnUparAtk.setOnClickListener(this)
+
         btnUparDef.setOnClickListener(this)
     }
 
