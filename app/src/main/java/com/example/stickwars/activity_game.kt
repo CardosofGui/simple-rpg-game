@@ -1,9 +1,11 @@
 package com.example.stickwars
 
+import android.media.Image
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.stickwars.`class`.*
@@ -15,7 +17,8 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
     lateinit var btnUparDef: Button
     lateinit var btnBoss: Button
     lateinit var txtInfo: TextView
-    lateinit var txtStas: TextView
+    lateinit var txtStats: TextView
+    lateinit var imgClass: ImageView
 
     lateinit var Usuario: Player
     lateinit var Chefao: Boss
@@ -28,7 +31,8 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
         btnUparDef = findViewById(R.id.btnUparDef)
         btnBoss = findViewById(R.id.btnEnfrentarBoss)
         txtInfo = findViewById(R.id.txtTitulo)
-        txtStas = findViewById(R.id.txtStats)
+        txtStats = findViewById(R.id.txtStats)
+        imgClass = findViewById(R.id.imgClass)
 
         val classe: String = intent.getStringExtra("personagemSelecionado").toString()
         val nome: String = intent.getStringExtra("nomeUser").toString()
@@ -36,9 +40,9 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
         Usuario = Player("$nome")
         Chefao = Boss(Chefoes.Chef1.nomeChefao, Chefoes.Chef1.atkStats, Chefoes.Chef1.defStats, Chefoes.Chef1.expTotal, Chefoes.Chef1.nivelBoss, Chefoes.Chef1.derrotado)
 
-        Usuario.setarClasse(classe)
+        Usuario.setarClasse(classe, imgClass)
 
-        txtStas.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
+        txtStats.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
         txtInfo.setText("Bem vindo ${Usuario.nome} - Classe ${Usuario.classe}")
 
         btnUparAtk.setOnClickListener(this)
@@ -50,32 +54,15 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
         when(v?.id){
             R.id.btnUparAtk -> {
                 Usuario.evoluirForca()
-                txtStas.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
+                txtStats.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
             }
             R.id.btnUparDef -> {
                 Usuario.evoluirDefesa()
-                txtStas.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
+                txtStats.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
             }
             R.id.btnEnfrentarBoss -> {
-                    combateBoss()
-                }
-
+                Usuario.combateBoss(Chefao, baseContext)
             }
         }
-
-    fun combateBoss() {
-        var forcaUsuario = Usuario.atkStats + Usuario.defStats
-        var forcaBoss = Chefao.atkStats + Chefao.defStats
-        var somaForcas = forcaUsuario + forcaBoss
-        var resultConfront = Random.nextInt(0, somaForcas)
-
-        if (resultConfront in 0..forcaUsuario) {
-            Toast.makeText(baseContext, "Derrotou o Boss " + Chefao.nome + " " + Chefao.nivelBoss, Toast.LENGTH_SHORT).show()
-            Chefao.derrotado = true
-            Chefao.evoluirChefe()
-        }else{
-            Toast.makeText(baseContext, "Perdeu " + Chefao.nome + " " + Chefao.nivelBoss, Toast.LENGTH_SHORT).show()
-        }
     }
-
 }

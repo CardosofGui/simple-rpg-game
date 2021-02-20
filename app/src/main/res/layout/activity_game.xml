@@ -34,6 +34,7 @@
         android:layout_below="@+id/txtStats"
         android:layout_centerInParent="true"
         android:src="@drawable/guerreiro"
+        android:id="@+id/imgClass"
         />
 
     <RelativeLayout
