@@ -1,15 +1,15 @@
 package com.example.stickwars
 
-import android.media.Image
+import android.animation.ObjectAnimator
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.example.stickwars.`class`.*
-import kotlin.random.Random
 
 class activity_game : AppCompatActivity(), View.OnClickListener {
 
@@ -53,16 +53,67 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.btnUparAtk -> {
-                Usuario.evoluirForca()
-                txtStats.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
+
+                criarPopupEvoluirStats("Atk")
+
             }
             R.id.btnUparDef -> {
-                Usuario.evoluirDefesa()
-                txtStats.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
+
+                criarPopupEvoluirStats("Def")
+
             }
             R.id.btnEnfrentarBoss -> {
                 Usuario.combateBoss(Chefao, baseContext)
             }
         }
     }
+
+
+    fun criarPopupEvoluirStats(evoluir: String){
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.popup_upar_stats, null)
+        val mBuilder = AlertDialog.Builder(this).setView(dialogView)
+        val dialog = mBuilder.create()
+
+        val txtTimer : TextView = dialogView.findViewById(R.id.timer)
+        val timer: CountDownTimer
+        val progBarLvlUp : ProgressBar = dialogView.findViewById(R.id.progLvlUp)
+
+        progBarLvlUp.max = 30
+
+        timer = object : CountDownTimer(30000, 1000){
+            override fun onFinish() {
+
+                if(evoluir.equals("Atk")){
+                    Usuario.evoluirForca()
+                }else{
+                    Usuario.evoluirDefesa()
+                }
+
+                txtStats.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
+                dialog.dismiss()
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                var minutes: Int = ((millisUntilFinished/1000) / 60).toInt()
+                var segundos: Int = ((millisUntilFinished/1000) % 60).toInt()
+
+                var timeText = "$minutes:"
+                if(segundos < 10) timeText += "0"
+                timeText += segundos
+
+                txtTimer.setText(timeText)
+
+                var progresso: Int = 30 - segundos
+                ObjectAnimator.ofInt(progBarLvlUp, "progress", progresso).setDuration(1000).start()
+            }
+        }.start()
+
+        dialog.setOnDismissListener(DialogInterface.OnDismissListener {
+            Toast.makeText(baseContext, "fechado", Toast.LENGTH_LONG).show()
+            timer.cancel()
+        })
+
+        dialog.show()
+    }
 }
+
