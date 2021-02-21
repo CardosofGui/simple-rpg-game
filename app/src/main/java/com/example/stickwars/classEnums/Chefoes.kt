@@ -1,4 +1,4 @@
-package com.example.stickwars.`class`
+package com.example.stickwars.classEnums
 
 enum class Chefoes (val nomeChefao: String, val atkStats: Int, val defStats: Int, val expTotal: Double, val derrotado: Boolean, val nivelBoss: Int) {
     Chef1("Jinpachi", 5, 5, 2.0, false, 0),

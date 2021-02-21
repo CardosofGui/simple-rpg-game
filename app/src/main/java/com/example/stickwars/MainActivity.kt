@@ -21,10 +21,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Inicializando variaveis e identificiando seus IDs
         btnIniciar = findViewById(R.id.btnIniciar)
         edtUsuario = findViewById(R.id.edtUsuario)
         spnPersonagem = findViewById(R.id.spnPersonagem)
 
+        // Criando o spinner
         val personagens = arrayOf("Escolha seu personagem...", "Guerreiro", "Arqueiro", "Mago")
 
         val adapter:ArrayAdapter<String> = object: ArrayAdapter<String>(

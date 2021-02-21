@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtStats"
         android:layout_centerInParent="true"
-        android:src="@drawable/guerreiro"
         android:id="@+id/imgClass"
         />
 
@@ -44,27 +43,44 @@
         android:gravity="center"
         >
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Upar Atk"
-            android:id="@+id/btnUparAtk"/>
+            android:id="@+id/uparStats"
+            android:gravity="center">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Upar Def"
-            android:id="@+id/btnUparDef"
-            android:layout_toRightOf="@+id/btnUparAtk"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upar Atk"
+                android:id="@+id/btnUparAtk"
+                android:layout_marginRight="25dp"/>
 
-        <Button
-            android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btnUparDef"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/btnUparAtk"
+                android:text="Upar Def" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Boss"
-            android:id="@+id/btnEnfrentarBoss"
-            android:layout_toRightOf="@+id/btnUparDef"/>
+            android:layout_below="@+id/uparStats"
+            android:gravity="center"
+            >
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Boss"
+                android:id="@+id/btnEnfrentarBoss"
+                android:layout_toRightOf="@+id/btnUparDef"/>
+
+        </LinearLayout>
+
 
     </RelativeLayout>
 
