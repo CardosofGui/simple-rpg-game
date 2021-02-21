@@ -1,6 +1,8 @@
 package com.example.stickwars
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
@@ -17,6 +19,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var spnPersonagem : Spinner
     lateinit var personagemSelecionado : String
 
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var adicionarPreferences: SharedPreferences.Editor
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -25,6 +30,18 @@ class MainActivity : AppCompatActivity() {
         btnIniciar = findViewById(R.id.btnIniciar)
         edtUsuario = findViewById(R.id.edtUsuario)
         spnPersonagem = findViewById(R.id.spnPersonagem)
+
+        sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
+        adicionarPreferences = sharedPreferences.edit()
+
+
+        if(sharedPreferences.getBoolean("UsuarioLogado", false)){
+            val intent = Intent(this,  activity_game::class.java)
+            Toast.makeText(this, "Usuario logado", Toast.LENGTH_LONG).show()
+            startActivity(intent)
+        }else{
+            Toast.makeText(this, "Usuario não logado", Toast.LENGTH_LONG).show()
+        }
 
         // Criando o spinner
         val personagens = arrayOf("Escolha seu personagem...", "Guerreiro", "Arqueiro", "Mago")
@@ -84,8 +101,11 @@ class MainActivity : AppCompatActivity() {
 
         btnIniciar.setOnClickListener(){
             val intent = Intent(this,  activity_game::class.java)
-            intent.putExtra("nomeUser", edtUsuario.getText().toString())
-            intent.putExtra("personagemSelecionado", personagemSelecionado)
+
+            adicionarPreferences.putString("Usuario", edtUsuario.getText().toString())
+            adicionarPreferences.putString("Classe", personagemSelecionado)
+            adicionarPreferences.apply()
+
             startActivity(intent)
         }
 

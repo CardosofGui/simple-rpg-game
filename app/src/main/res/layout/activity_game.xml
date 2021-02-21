@@ -4,57 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity_game"
     android:orientation="vertical"
-    android:padding="20dp">
+    android:padding="20dp"
+    tools:context=".activity_game">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Bem-vindo {Usuario} - Classe {Classe}"
-        android:textSize="18sp"
-        android:textAlignment="center"
-        android:layout_alignParentTop="true"
         android:id="@+id/txtTitulo"
-        />
-
-    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="Bem-vindo {Usuario} - Classe {Classe}"
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtStats"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTitulo"
         android:text="Atk:          Def:          Exp. Total:"
         android:textAlignment="center"
-        android:textSize="20sp"
-        android:layout_below="@+id/txtTitulo"
-        android:id="@+id/txtStats"
-        />
+        android:textSize="20sp" />
 
     <ImageView
+        android:id="@+id/imgClass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtStats"
-        android:layout_centerInParent="true"
-        android:id="@+id/imgClass"
-        />
+        android:layout_centerInParent="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center"
-        >
+        android:gravity="center">
 
         <LinearLayout
+            android:id="@+id/uparStats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/uparStats"
             android:gravity="center">
 
             <Button
+                android:id="@+id/btnUparAtk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Upar Atk"
-                android:id="@+id/btnUparAtk"
-                android:layout_marginRight="25dp"/>
+                android:layout_marginRight="25dp"
+                android:text="Upar Atk" />
 
             <Button
                 android:id="@+id/btnUparDef"
@@ -69,15 +65,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/uparStats"
-            android:gravity="center"
-            >
+            android:gravity="center">
 
             <Button
+                android:id="@+id/btnEnfrentarBoss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Boss"
-                android:id="@+id/btnEnfrentarBoss"
-                android:layout_toRightOf="@+id/btnUparDef"/>
+                android:layout_toRightOf="@+id/btnUparDef"
+                android:text="Boss" />
 
         </LinearLayout>
 

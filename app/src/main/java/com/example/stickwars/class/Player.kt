@@ -1,6 +1,7 @@
 package com.example.stickwars.`class`
 
 import android.content.Context
+import android.media.Image
 import android.widget.*
 import com.example.stickwars.classEnums.Classes
 import kotlin.random.Random
@@ -22,7 +23,7 @@ class Player(nome: String ):Personagem(nome) {
         expTotal = (atkStats+defStats).toDouble() / 5
     }
 
-    fun combateBoss( Chefao: Boss, mContex: Context, btnBoss : Button) {
+    fun combateBoss( Chefao: Boss, mContex: Context) {
         var forcaUsuario = atkStats + defStats
         var forcaBoss = Chefao.atkStats + Chefao.defStats
         var somaForcas = forcaUsuario + forcaBoss
@@ -34,7 +35,6 @@ class Player(nome: String ):Personagem(nome) {
             Toast.makeText(mContex, "Derrotou o Boss ${Chefao.nome} - Lvl. ${Chefao.nivelBoss+1}", Toast.LENGTH_SHORT).show()
             Chefao.derrotado = true
             Chefao.evoluirChefe(mContex)
-            btnBoss.setText("Boss Lvl. ${Chefao.nivelBoss} \n ${Chefao.nome}")
         }else{
             // Se perder ocorre isso...
             Toast.makeText(mContex, "Perdeu para o Boss ${Chefao.nome} - Lvl. ${Chefao.nivelBoss+1}", Toast.LENGTH_SHORT).show()
@@ -42,9 +42,7 @@ class Player(nome: String ):Personagem(nome) {
     }
 
     fun setarClasse(nomeClasse: String, imagem: ImageView){
-
         // Utiliza a enum class Classes para setar a configuração inical de cada Classe
-
         if(nomeClasse.equals(Classes.Ark.nomeClasse)){
             this.atkStats = Classes.Ark.atkStats
             this.defStats = Classes.Ark.defStats
@@ -64,6 +62,22 @@ class Player(nome: String ):Personagem(nome) {
             this.expTotal = Classes.Mage.expTotal
             imagem.setImageResource(Classes.Mage.img)
         }
+    }
+
+    fun setarInfoSalva(atkStats: Int, defStats: Int, classe: String, expTotal: Double,imgClass : ImageView){
+        this.atkStats = atkStats
+        this.defStats = defStats
+        this.classe = classe
+        this.expTotal = expTotal
+
+        if(classe.equals(Classes.Ark.nomeClasse)){
+            imgClass.setImageResource(Classes.Ark.img)
+        }else if(classe.equals(Classes.War.nomeClasse)){
+            imgClass.setImageResource(Classes.War.img)
+        }else{
+            imgClass.setImageResource(Classes.Mage.img)
+        }
+
     }
 
 }

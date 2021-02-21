@@ -1,7 +1,9 @@
 package com.example.stickwars
 
 import android.animation.ObjectAnimator
+import android.content.Context
 import android.content.DialogInterface
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -26,6 +28,10 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
     lateinit var Usuario: Player
     lateinit var Chefao: Boss
 
+    lateinit var sharedPreferences: SharedPreferences
+    lateinit var adicionarPreferences: SharedPreferences.Editor
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
@@ -38,20 +44,45 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
         txtStats = findViewById(R.id.txtStats)
         imgClass = findViewById(R.id.imgClass)
 
+        sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
+        adicionarPreferences = sharedPreferences.edit()
+
+
         // Resgatando dados
-        val classe: String = intent.getStringExtra("personagemSelecionado").toString()
-        val nome: String = intent.getStringExtra("nomeUser").toString()
+        if(sharedPreferences.getBoolean("UsuarioLogado", false)){
+            var LvlBoss = sharedPreferences.getInt("LvlBoss", 0)
 
-        // Criando objetos (Personagens)
-        Usuario = Player("$nome")
-        Usuario.setarClasse(classe, imgClass)
-        Chefao = Boss(Chefoes.Chef1.nomeChefao, Chefoes.Chef1.atkStats, Chefoes.Chef1.defStats, Chefoes.Chef1.expTotal, Chefoes.Chef1.nivelBoss, Chefoes.Chef1.derrotado)
+            Usuario = Player(
+                sharedPreferences.getString("Usuario", "undefined").toString())
 
+            Usuario.setarInfoSalva(
+                sharedPreferences.getInt("atkStats", 999),
+                sharedPreferences.getInt("defStats", 999),
+                sharedPreferences.getString("Classe", "undefined").toString(),
+                sharedPreferences.getFloat("expTotal", 0.0F).toDouble(), imgClass)
+
+            Chefao = Boss(Chefoes.values().get(LvlBoss).nomeChefao,
+                Chefoes.values().get(LvlBoss).atkStats,
+                Chefoes.values().get(LvlBoss).defStats,
+                Chefoes.values().get(LvlBoss).expTotal,
+                Chefoes.values().get(LvlBoss).nivelBoss,
+                Chefoes.values().get(LvlBoss).derrotado)
+        }else{
+            val classe: String = sharedPreferences.getString("Classe", "undefined").toString()
+            val nome: String = sharedPreferences.getString("Usuario", "undefined").toString()
+
+            Usuario = Player(nome)
+            Usuario.setarClasse(classe, imgClass)
+            Chefao = Boss(Chefoes.Chef1.nomeChefao, Chefoes.Chef1.atkStats, Chefoes.Chef1.defStats, Chefoes.Chef1.expTotal, Chefoes.Chef1.nivelBoss, Chefoes.Chef1.derrotado)
+
+            adicionarPreferences.putBoolean("UsuarioLogado", true)
+            adicionarPreferences.apply()
+            salvarDadosPlayer()
+            salvarDadosBoss()
+        }
 
         // Setando textos iniciais
-        txtStats.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
-        txtInfo.setText("Bem vindo ${Usuario.nome} - Classe ${Usuario.classe}")
-        btnBoss.setText("Boss Lvl. ${Chefao.nivelBoss} \n ${Chefao.nome}")
+        setarTextos()
 
         // Ações Cliques
         btnUparAtk.setOnClickListener(this)
@@ -105,14 +136,18 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
                     // Fazendo upgrade na força se tiver sido a escolhida
                     Usuario.evoluirForca()
                     Toast.makeText(baseContext, "+1 LVL de ATK. LVL atual: ${Usuario.atkStats}", Toast.LENGTH_LONG).show()
+                    salvarDadosPlayer()
+
                 }else if(evoluir.equals(PlayerActions.ACTION_UP_DEF.action)){
+
                     // Fazendo upgrade na defesa se tiver sido a escolhida
                     Usuario.evoluirDefesa()
                     Toast.makeText(baseContext, "+1 LVL de DEF. LVL atual: ${Usuario.defStats}", Toast.LENGTH_LONG).show()
+                    salvarDadosPlayer()
                 }
 
                 // Atualizando informações
-                txtStats.setText("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: ${Usuario.expTotal}")
+                setarTextos()
                 dialog.dismiss()
             }
 
@@ -161,7 +196,9 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
         timer = object : CountDownTimer(delayCombateSeg*1000, 1000){
             override fun onFinish() {
                 // Criando o combate
-                Usuario.combateBoss(Chefao, baseContext, btnBoss)
+                Usuario.combateBoss(Chefao, baseContext)
+                salvarDadosBoss()
+                setarTextos()
                 dialog.dismiss()
             }
 
@@ -187,5 +224,25 @@ class activity_game : AppCompatActivity(), View.OnClickListener {
 
         dialog.show()
     }
+
+
+    fun salvarDadosPlayer(){
+        adicionarPreferences.putInt("atkStats", Usuario.atkStats)
+        adicionarPreferences.putInt("defStats", Usuario.defStats)
+        adicionarPreferences.putFloat("expTotal", Usuario.expTotal.toFloat())
+        adicionarPreferences.apply()
+    }
+
+    fun salvarDadosBoss(){
+        adicionarPreferences.putInt("LvlBoss", Chefao.nivelBoss)
+        adicionarPreferences.apply()
+    }
+
+    fun setarTextos(){
+        txtStats.setText(String.format("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: %.1f", Usuario.expTotal))
+        txtInfo.setText("Bem vindo ${Usuario.nome} - Classe ${Usuario.classe}")
+        btnBoss.setText("Boss Lvl. ${Chefao.nivelBoss+1} \n ${Chefao.nome}")
+    }
+
 }
 
