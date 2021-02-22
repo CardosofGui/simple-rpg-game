@@ -11,13 +11,14 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.example.stickwars.classEnums.BdSharedPreferences
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var btnIniciar : Button
     lateinit var edtUsuario : EditText
     lateinit var spnPersonagem : Spinner
-    lateinit var personagemSelecionado : String
+    var personagemSelecionado : String? = null
 
     lateinit var sharedPreferences: SharedPreferences
     lateinit var adicionarPreferences: SharedPreferences.Editor
@@ -35,13 +36,7 @@ class MainActivity : AppCompatActivity() {
         adicionarPreferences = sharedPreferences.edit()
 
 
-        if(sharedPreferences.getBoolean("UsuarioLogado", false)){
-            val intent = Intent(this,  bottom_navigation::class.java)
-            Toast.makeText(this, "Usuario logado", Toast.LENGTH_LONG).show()
-            startActivity(intent)
-        }else{
-            Toast.makeText(this, "Usuario não logado", Toast.LENGTH_LONG).show()
-        }
+        verificaAutenticacao(sharedPreferences.getBoolean(BdSharedPreferences.usuarioLogado.key, false))
 
         // Criando o spinner
         val personagens = arrayOf("Escolha seu personagem...", "Guerreiro", "Arqueiro", "Mago")
@@ -74,7 +69,6 @@ class MainActivity : AppCompatActivity() {
 
                 spnPersonagem.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
                     override fun onNothingSelected(parent: AdapterView<*>?) {
-
                     }
 
                     override fun onItemSelected(
@@ -102,12 +96,24 @@ class MainActivity : AppCompatActivity() {
         btnIniciar.setOnClickListener(){
             val intent = Intent(this,  bottom_navigation::class.java)
 
-            adicionarPreferences.putString("Usuario", edtUsuario.getText().toString())
-            adicionarPreferences.putString("Classe", personagemSelecionado)
-            adicionarPreferences.apply()
-
-            startActivity(intent)
+            if(edtUsuario.getText().toString().isEmpty() || personagemSelecionado.isNullOrEmpty()){
+                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_LONG).show()
+            }else{
+                adicionarPreferences.putString(BdSharedPreferences.playerNome.key, edtUsuario.getText().toString())
+                adicionarPreferences.putString(BdSharedPreferences.playerClasse.key, personagemSelecionado)
+                adicionarPreferences.apply()
+                startActivity(intent)
+            }
         }
+    }
 
+    fun verificaAutenticacao(logado : Boolean){
+        if(logado){
+            val intent = Intent(this,  bottom_navigation::class.java)
+            Toast.makeText(this, "Usuario logado", Toast.LENGTH_LONG).show()
+            startActivity(intent)
+        }else{
+            Toast.makeText(this, "Usuario não logado", Toast.LENGTH_LONG).show()
+        }
     }
 }

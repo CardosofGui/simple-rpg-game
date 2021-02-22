@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.stickwars.`class`.Boss
 import com.example.stickwars.`class`.Player
+import com.example.stickwars.classEnums.BdSharedPreferences
 import com.example.stickwars.classEnums.PlayerActions
 import java.sql.Time
 
@@ -77,31 +78,7 @@ class activity_bossFight : Fragment() {
 
         progBarTimer.max = 30
 
-        if(sharedPreferences.getBoolean("UsuarioLogado", false)) {
-
-            Usuario = Player(
-                sharedPreferences.getString("Usuario", "undefined").toString()
-            )
-
-            Usuario.setarInfoSalva(
-                sharedPreferences.getInt("atkStats", 999),
-                sharedPreferences.getInt("defStats", 999),
-                sharedPreferences.getString("Classe", "undefined").toString(),
-                sharedPreferences.getFloat("expTotal", 0.0F).toDouble()
-            )
-
-            Chefao = Boss(
-                sharedPreferences.getString("nomeChefao", "Jinpachi").toString(),
-                sharedPreferences.getInt("atkStatsChefao", 5),
-                sharedPreferences.getInt("defStatsChefao", 5),
-                sharedPreferences.getFloat("expTotalChefao", 1.0F).toDouble(),
-                sharedPreferences.getInt("nivelChefao", 0),
-                sharedPreferences.getBoolean("derrotadoBoss", false)
-            )
-
-            salvarDadosBoss()
-            salvarDadosPlayer()
-        }
+        criandoObjetos()
 
         lifeBoss = (Chefao.atkStats + Chefao.defStats) * 10
         playerPower = (Usuario.atkStats + Usuario.defStats) / 2
@@ -141,22 +118,6 @@ class activity_bossFight : Fragment() {
 
 
 
-    fun salvarDadosPlayer(){
-        adicionarPreferences.putInt("atkStats", Usuario.atkStats)
-        adicionarPreferences.putInt("defStats", Usuario.defStats)
-        adicionarPreferences.putFloat("expTotal", Usuario.expTotal.toFloat())
-        adicionarPreferences.apply()
-    }
-
-    fun salvarDadosBoss(){
-        adicionarPreferences.putString("nomeChefao", Chefao.nome).toString()
-        adicionarPreferences.putInt("atkStatsChefao", Chefao.atkStats)
-        adicionarPreferences.putInt("defStatsChefao", Chefao.defStats)
-        adicionarPreferences.putFloat("expTotalChefao", Chefao.expTotal.toFloat())
-        adicionarPreferences.putInt("nivelChefao", Chefao.nivelBoss)
-        adicionarPreferences.putBoolean("derrotadoBoss", Chefao.derrotado)
-        adicionarPreferences.apply()
-    }
 
     fun confrontoBoss(){
 
@@ -176,7 +137,7 @@ class activity_bossFight : Fragment() {
                 progBarTimer.progress = 0
 
                 atualizarDados()
-                salvarDadosBoss()
+                Chefao.salvarDadosBoss(adicionarPreferences)
             }
 
             atualizarDados()
@@ -201,19 +162,40 @@ class activity_bossFight : Fragment() {
     fun configurarTimer(){
         timer = object : CountDownTimer(30000, 1000){
             override fun onFinish() {
-
                 TimeRunning = false
-
             }
 
             override fun onTick(millisUntilFinished: Long) {
                 var segundos: Int = millisUntilFinished.toInt() / 1000
-
                 var progresso: Int = 30-segundos
-
                 ObjectAnimator.ofInt(progBarTimer, "progress", progresso).setDuration(100).start()
             }
         }
+
+    }
+
+    fun criandoObjetos(){
+        Usuario = Player(
+            sharedPreferences.getString(BdSharedPreferences.playerNome.key, "undefined").toString()
+        )
+
+        Usuario.setarInfoSalva(
+            sharedPreferences.getInt(BdSharedPreferences.playerAtkStats.key, 999),
+            sharedPreferences.getInt(BdSharedPreferences.playerDefStats.key, 999),
+            sharedPreferences.getString(BdSharedPreferences.playerClasse.key, "undefined").toString(),
+            sharedPreferences.getFloat(BdSharedPreferences.playerExpTotal.key, 0.0F).toDouble()
+        )
+
+        Chefao = Boss(
+            sharedPreferences.getString(BdSharedPreferences.bossNome.key, "Jinpachi").toString(),
+            sharedPreferences.getInt(BdSharedPreferences.bossAtkStats.key, 5),
+            sharedPreferences.getInt(BdSharedPreferences.bossDefStats.key, 5),
+            sharedPreferences.getInt(BdSharedPreferences.bossNivel.key, 0),
+            sharedPreferences.getBoolean(BdSharedPreferences.bossDerrotado.key, false)
+        )
+
+        Chefao.salvarDadosBoss(adicionarPreferences)
+        Usuario.salvarDadosPlayer(adicionarPreferences)
     }
 
     override fun onStop() {

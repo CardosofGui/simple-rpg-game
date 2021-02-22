@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.stickwars.`class`.Boss
 import com.example.stickwars.`class`.Player
+import com.example.stickwars.classEnums.BdSharedPreferences
 import com.example.stickwars.classEnums.Chefoes
 
 // TODO: Rename parameter arguments, choose names that match
@@ -66,39 +67,8 @@ class activity_stats : Fragment() {
         sharedPreferences = requireContext().getSharedPreferences("Dados", Context.MODE_PRIVATE)
         adicionarPreferences = sharedPreferences.edit()
 
+        criandoObjetos(sharedPreferences.getBoolean(BdSharedPreferences.usuarioLogado.key, false))
 
-        if(sharedPreferences.getBoolean("UsuarioLogado", false)){
-
-            Usuario = Player(
-                sharedPreferences.getString("Usuario", "undefined").toString())
-
-            Usuario.setarInfoSalvaStats(
-                sharedPreferences.getInt("atkStats", 999),
-                sharedPreferences.getInt("defStats", 999),
-                sharedPreferences.getString("Classe", "undefined").toString(),
-                sharedPreferences.getFloat("expTotal", 0.0F).toDouble(), imgClass)
-
-        }else{
-            val classe: String = sharedPreferences.getString("Classe", "undefined").toString()
-            val nome: String = sharedPreferences.getString("Usuario", "undefined").toString()
-
-            Usuario = Player(nome)
-            Usuario.setarClasse(classe, imgClass)
-
-            Chefao = Boss(
-                Chefoes.Chef1.nomeChefao,
-                Chefoes.Chef1.atkStats,
-                Chefoes.Chef1.defStats,
-                Chefoes.Chef1.expTotal,
-                Chefoes.Chef1.nivelBoss,
-                Chefoes.Chef1.derrotado)
-
-            adicionarPreferences.putBoolean("UsuarioLogado", true)
-            adicionarPreferences.apply()
-
-            salvarDadosPlayer()
-            salvarDadosBoss()
-        }
 
         setarTextos()
         return v
@@ -124,25 +94,46 @@ class activity_stats : Fragment() {
             }
     }
 
-    fun salvarDadosPlayer(){
-        adicionarPreferences.putInt("atkStats", Usuario.atkStats)
-        adicionarPreferences.putInt("defStats", Usuario.defStats)
-        adicionarPreferences.putFloat("expTotal", Usuario.expTotal.toFloat())
-        adicionarPreferences.apply()
-    }
-
-    fun salvarDadosBoss(){
-        adicionarPreferences.putString("nomeChefao", Chefao.nome).toString()
-        adicionarPreferences.putInt("atkStatsChefao", Chefao.atkStats)
-        adicionarPreferences.putInt("defStatsChefao", Chefao.defStats)
-        adicionarPreferences.putFloat("expTotalChefao", Chefao.expTotal.toFloat())
-        adicionarPreferences.putInt("nivelChefao", Chefao.nivelBoss)
-        adicionarPreferences.putBoolean("derrotadoBoss", Chefao.derrotado)
-        adicionarPreferences.apply()
-    }
 
     fun setarTextos(){
         txtStats.setText(String.format("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: %.1f", Usuario.expTotal))
         txtInfo.setText("Bem vindo ${Usuario.nome} - Classe ${Usuario.classe}")
     }
+
+    fun criandoObjetos(logado : Boolean){
+        if(logado){
+
+            Usuario = Player(
+                sharedPreferences.getString(BdSharedPreferences.playerNome.key, "undefined").toString()
+            )
+            Usuario.setarInfoSalva(
+                sharedPreferences.getInt(BdSharedPreferences.playerAtkStats.key, 999),
+                sharedPreferences.getInt(BdSharedPreferences.playerDefStats.key, 999),
+                sharedPreferences.getString(BdSharedPreferences.playerClasse.key, "undefined").toString(),
+                sharedPreferences.getFloat(BdSharedPreferences.playerExpTotal.key, 0.0F).toDouble()
+            )
+            Usuario.atualizarImagemClasse(imgClass)
+
+        }else{
+            val classe: String = sharedPreferences.getString(BdSharedPreferences.playerClasse.key, "undefined").toString()
+            val nome: String = sharedPreferences.getString(BdSharedPreferences.playerNome.key, "undefined").toString()
+
+            Usuario = Player(nome)
+            Usuario.setarClasse(classe, imgClass)
+
+            Chefao = Boss(
+                Chefoes.Chef1.nomeChefao,
+                Chefoes.Chef1.atkStats,
+                Chefoes.Chef1.defStats,
+                Chefoes.Chef1.nivelBoss,
+                Chefoes.Chef1.derrotado)
+
+            adicionarPreferences.putBoolean("UsuarioLogado", true)
+            adicionarPreferences.apply()
+
+            Usuario.salvarDadosPlayer(adicionarPreferences)
+            Chefao.salvarDadosBoss(adicionarPreferences)
+        }
+    }
+
 }

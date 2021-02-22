@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.*
 import com.example.stickwars.`class`.Boss
 import com.example.stickwars.`class`.Player
+import com.example.stickwars.classEnums.BdSharedPreferences
 import com.example.stickwars.classEnums.Chefoes
 import com.example.stickwars.classEnums.PlayerActions
 
@@ -65,18 +66,7 @@ class activity_upAtk : Fragment() {
         adicionarPreferences = sharedPreferences.edit()
 
 
-        if(sharedPreferences.getBoolean("UsuarioLogado", false)){
-
-            Usuario = Player(
-                sharedPreferences.getString("Usuario", "undefined").toString())
-
-            Usuario.setarInfoSalva(
-                sharedPreferences.getInt("atkStats", 999),
-                sharedPreferences.getInt("defStats", 999),
-                sharedPreferences.getString("Classe", "undefined").toString(),
-                sharedPreferences.getFloat("expTotal", 0.0F).toDouble())
-        }
-
+        criandoObjetos()
         atualizarTexto()
 
         btnUpgradeAtk.setOnClickListener {
@@ -85,7 +75,7 @@ class activity_upAtk : Fragment() {
             if(clickCount == 15){
                 ObjectAnimator.ofInt(progBarLvlUp, "progress", 0).setDuration(0).start()
                 Usuario.evoluirForca()
-                salvarDadosPlayer()
+                Usuario.salvarDadosPlayer(adicionarPreferences)
                 clickCount = 0
                 atualizarTexto()
             }else{
@@ -117,15 +107,23 @@ class activity_upAtk : Fragment() {
             }
     }
 
-    fun salvarDadosPlayer(){
-        adicionarPreferences.putInt("atkStats", Usuario.atkStats)
-        adicionarPreferences.putInt("defStats", Usuario.defStats)
-        adicionarPreferences.putFloat("expTotal", Usuario.expTotal.toFloat())
-        adicionarPreferences.apply()
-    }
 
     fun atualizarTexto(){
         txtTitle.setText("Evoluindo Ataque: ${Usuario.atkStats}")
     }
 
+    fun criandoObjetos(){
+        Usuario = Player(
+            sharedPreferences.getString(BdSharedPreferences.playerNome.key, "undefined").toString()
+        )
+
+        Usuario.setarInfoSalva(
+            sharedPreferences.getInt(BdSharedPreferences.playerAtkStats.key, 999),
+            sharedPreferences.getInt(BdSharedPreferences.playerDefStats.key, 999),
+            sharedPreferences.getString(BdSharedPreferences.playerClasse.key, "undefined").toString(),
+            sharedPreferences.getFloat(BdSharedPreferences.playerExpTotal.key, 0.0F).toDouble()
+        )
+
+        Usuario.salvarDadosPlayer(adicionarPreferences)
+    }
 }
