@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
 
         if(sharedPreferences.getBoolean("UsuarioLogado", false)){
-            val intent = Intent(this,  activity_game::class.java)
+            val intent = Intent(this,  bottom_navigation::class.java)
             Toast.makeText(this, "Usuario logado", Toast.LENGTH_LONG).show()
             startActivity(intent)
         }else{
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         spnPersonagem.adapter = adapter
 
         btnIniciar.setOnClickListener(){
-            val intent = Intent(this,  activity_game::class.java)
+            val intent = Intent(this,  bottom_navigation::class.java)
 
             adicionarPreferences.putString("Usuario", edtUsuario.getText().toString())
             adicionarPreferences.putString("Classe", personagemSelecionado)

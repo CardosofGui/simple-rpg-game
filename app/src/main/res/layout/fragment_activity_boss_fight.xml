@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity_bossFight">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="20dp">
+
+        <ProgressBar
+            android:id="@+id/progBarTimer"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:scaleY="4"
+            />
+
+        <ProgressBar
+            android:id="@+id/progBarLife"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progBarTimer"
+            android:layout_marginBottom="15dp"
+            android:scaleY="6" />
+
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/progBarLife"
+            android:layout_marginBottom="15dp"
+            android:text="Enfrentando Boss"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btnEnfrentarBoss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtTitle"
+            android:layout_centerInParent="true"
+            android:text="Iniciar" />
+
+    </RelativeLayout>
+
+</FrameLayout>

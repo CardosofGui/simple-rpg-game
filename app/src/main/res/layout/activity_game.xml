@@ -5,33 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="20dp"
     tools:context=".activity_game">
 
-    <TextView
-        android:id="@+id/txtTitulo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:text="Bem-vindo {Usuario} - Classe {Classe}"
-        android:textAlignment="center"
-        android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/txtStats"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTitulo"
-        android:text="Atk:          Def:          Exp. Total:"
-        android:textAlignment="center"
-        android:textSize="20sp" />
-
-    <ImageView
-        android:id="@+id/imgClass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtStats"
-        android:layout_centerInParent="true" />
 
     <RelativeLayout
         android:layout_width="match_parent"

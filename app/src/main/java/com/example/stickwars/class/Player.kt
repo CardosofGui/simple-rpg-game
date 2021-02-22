@@ -64,7 +64,7 @@ class Player(nome: String ):Personagem(nome) {
         }
     }
 
-    fun setarInfoSalva(atkStats: Int, defStats: Int, classe: String, expTotal: Double,imgClass : ImageView){
+    fun setarInfoSalvaStats(atkStats: Int, defStats: Int, classe: String, expTotal: Double,imgClass : ImageView){
         this.atkStats = atkStats
         this.defStats = defStats
         this.classe = classe
@@ -77,6 +77,14 @@ class Player(nome: String ):Personagem(nome) {
         }else{
             imgClass.setImageResource(Classes.Mage.img)
         }
+
+    }
+
+    fun setarInfoSalva(atkStats: Int, defStats: Int, classe: String, expTotal: Double){
+        this.atkStats = atkStats
+        this.defStats = defStats
+        this.classe = classe
+        this.expTotal = expTotal
 
     }
 
