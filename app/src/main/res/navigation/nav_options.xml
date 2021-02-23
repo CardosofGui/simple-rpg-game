@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/activity_stats"
         android:name="com.example.stickwars.activity_stats"
-        android:label="Status"
+        android:label="Stats"
         tools:layout="@layout/fragment_activity_stats" />
     <fragment
         android:id="@+id/activity_upAtk"
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/activity_bossFight"
         android:name="com.example.stickwars.activity_bossFight"
-        android:label="Enfrantando Chefão"
+        android:label="Enfrentando Chefão"
         tools:layout="@layout/fragment_activity_boss_fight" />
 
 </navigation>

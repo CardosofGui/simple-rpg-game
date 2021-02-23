@@ -16,8 +16,6 @@ import android.widget.Toast
 import com.example.stickwars.`class`.Boss
 import com.example.stickwars.`class`.Player
 import com.example.stickwars.classEnums.BdSharedPreferences
-import com.example.stickwars.classEnums.PlayerActions
-import java.sql.Time
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,8 +37,8 @@ class activity_bossFight : Fragment() {
     lateinit var progBarLife : ProgressBar
     lateinit var txtTitle : TextView
 
-    var lifeBoss : Int = 0
-    var playerPower : Int = 0
+    var lifeBoss : Double = 0.0
+    var playerPower : Double = 0.0
 
     lateinit var Usuario: Player
     lateinit var Chefao: Boss
@@ -80,11 +78,11 @@ class activity_bossFight : Fragment() {
 
         criandoObjetos()
 
-        lifeBoss = (Chefao.atkStats + Chefao.defStats) * 10
-        playerPower = (Usuario.atkStats + Usuario.defStats) / 2
+        lifeBoss = (Chefao.atkStats + Chefao.defStats).toDouble() * 50
+        playerPower = (Usuario.atkStats + Usuario.defStats).toDouble() / 10
 
-        progBarLife.max = lifeBoss
-        progBarLife.progress = lifeBoss
+        progBarLife.max = lifeBoss.toInt()
+        progBarLife.progress = lifeBoss.toInt()
 
         atualizarDados()
         configurarTimer()
@@ -125,12 +123,12 @@ class activity_bossFight : Fragment() {
 
             lifeBoss -= playerPower
 
-            ObjectAnimator.ofInt(progBarLife, "progress", lifeBoss).setDuration(100).start()
+            ObjectAnimator.ofInt(progBarLife, "progress", lifeBoss.toInt()).setDuration(100).start()
 
             if(lifeBoss <= 0){
                 Chefao.derrotado = true
                 Chefao.evoluirChefe(requireContext())
-                lifeBoss = (Chefao.atkStats + Chefao.defStats) * 10
+                lifeBoss = (Chefao.atkStats + Chefao.defStats).toDouble() * 50
 
                 TimeRunning = false
                 timer.cancel()
@@ -138,6 +136,7 @@ class activity_bossFight : Fragment() {
 
                 atualizarDados()
                 Chefao.salvarDadosBoss(adicionarPreferences)
+                btnAtacar.setText("Iniciar")
             }
 
             atualizarDados()
@@ -145,8 +144,8 @@ class activity_bossFight : Fragment() {
         }else{
             TimeRunning = true
 
-            progBarLife.max = lifeBoss
-            progBarLife.progress = lifeBoss
+            progBarLife.max = lifeBoss.toInt()
+            progBarLife.progress = lifeBoss.toInt()
 
             Toast.makeText(requireContext(), "Iniciando confronto contra o Boss: ${Chefao.nome}", Toast.LENGTH_LONG).show()
             btnAtacar.setText("Atacar")
@@ -156,13 +155,20 @@ class activity_bossFight : Fragment() {
     }
 
     fun atualizarDados(){
-        txtTitle.setText("Enfrentando Boss: ${Chefao.nome} Vida: ${lifeBoss}/${(Chefao.atkStats+Chefao.defStats)*10}")
+        txtTitle.setText("Enfrentando Boss ${Chefao.nome} \nVida: ${lifeBoss}/${(Chefao.atkStats+Chefao.defStats).toDouble()*50}")
     }
 
     fun configurarTimer(){
         timer = object : CountDownTimer(30000, 1000){
             override fun onFinish() {
                 TimeRunning = false
+                lifeBoss = (Chefao.atkStats + Chefao.defStats).toDouble() * 50
+                progBarTimer.progress = 0
+                atualizarDados()
+                Toast.makeText(requireContext(), "Você não derrotou o Boss ${Chefao.nome}!", Toast.LENGTH_LONG).show()
+
+
+                btnAtacar.setText("Iniciar")
             }
 
             override fun onTick(millisUntilFinished: Long) {
@@ -176,22 +182,22 @@ class activity_bossFight : Fragment() {
 
     fun criandoObjetos(){
         Usuario = Player(
-            sharedPreferences.getString(BdSharedPreferences.playerNome.key, "undefined").toString()
+            sharedPreferences.getString(BdSharedPreferences.PLAYER_NOME.key, "undefined").toString()
         )
 
         Usuario.setarInfoSalva(
-            sharedPreferences.getInt(BdSharedPreferences.playerAtkStats.key, 999),
-            sharedPreferences.getInt(BdSharedPreferences.playerDefStats.key, 999),
-            sharedPreferences.getString(BdSharedPreferences.playerClasse.key, "undefined").toString(),
-            sharedPreferences.getFloat(BdSharedPreferences.playerExpTotal.key, 0.0F).toDouble()
+            sharedPreferences.getInt(BdSharedPreferences.PLAYER_ATK_STATS.key, 999),
+            sharedPreferences.getInt(BdSharedPreferences.PLAYER_DEF_STATS.key, 999),
+            sharedPreferences.getString(BdSharedPreferences.PLAYER_CLASSE.key, "undefined").toString(),
+            sharedPreferences.getFloat(BdSharedPreferences.PLAYER_EXP_TOTAL.key, 0.0F).toDouble()
         )
 
         Chefao = Boss(
-            sharedPreferences.getString(BdSharedPreferences.bossNome.key, "Jinpachi").toString(),
-            sharedPreferences.getInt(BdSharedPreferences.bossAtkStats.key, 5),
-            sharedPreferences.getInt(BdSharedPreferences.bossDefStats.key, 5),
-            sharedPreferences.getInt(BdSharedPreferences.bossNivel.key, 0),
-            sharedPreferences.getBoolean(BdSharedPreferences.bossDerrotado.key, false)
+            sharedPreferences.getString(BdSharedPreferences.BOSS_NOME.key, "Jinpachi").toString(),
+            sharedPreferences.getInt(BdSharedPreferences.BOSS_ATK_STATS.key, 5),
+            sharedPreferences.getInt(BdSharedPreferences.BOSS_DEF_STATS.key, 5),
+            sharedPreferences.getInt(BdSharedPreferences.BOSS_NIVEL.key, 0),
+            sharedPreferences.getBoolean(BdSharedPreferences.BOSS_DERROTADO.key, false)
         )
 
         Chefao.salvarDadosBoss(adicionarPreferences)

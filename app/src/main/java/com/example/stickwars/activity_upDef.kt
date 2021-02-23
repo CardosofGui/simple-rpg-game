@@ -112,14 +112,14 @@ class activity_upDef : Fragment() {
 
     fun criandoObjetos(){
         Usuario = Player(
-            sharedPreferences.getString(BdSharedPreferences.playerNome.key, "undefined").toString()
+            sharedPreferences.getString(BdSharedPreferences.PLAYER_NOME.key, "undefined").toString()
         )
 
         Usuario.setarInfoSalva(
-            sharedPreferences.getInt(BdSharedPreferences.playerAtkStats.key, 999),
-            sharedPreferences.getInt(BdSharedPreferences.playerDefStats.key, 999),
-            sharedPreferences.getString(BdSharedPreferences.playerClasse.key, "undefined").toString(),
-            sharedPreferences.getFloat(BdSharedPreferences.playerExpTotal.key, 0.0F).toDouble()
+            sharedPreferences.getInt(BdSharedPreferences.PLAYER_ATK_STATS.key, 999),
+            sharedPreferences.getInt(BdSharedPreferences.PLAYER_DEF_STATS.key, 999),
+            sharedPreferences.getString(BdSharedPreferences.PLAYER_CLASSE.key, "undefined").toString(),
+            sharedPreferences.getFloat(BdSharedPreferences.PLAYER_EXP_TOTAL.key, 0.0F).toDouble()
         )
 
         Usuario.salvarDadosPlayer(adicionarPreferences)

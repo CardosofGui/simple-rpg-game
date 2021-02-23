@@ -1,12 +1,9 @@
 package com.example.stickwars.`class`
 
-import android.content.Context
 import android.content.SharedPreferences
-import android.media.Image
 import android.widget.*
 import com.example.stickwars.classEnums.BdSharedPreferences
 import com.example.stickwars.classEnums.Classes
-import kotlin.random.Random
 
 class Player(nome: String ):Personagem(nome) {
 
@@ -56,9 +53,9 @@ class Player(nome: String ):Personagem(nome) {
     }
 
     fun salvarDadosPlayer(adicionarPreferences : SharedPreferences.Editor){
-        adicionarPreferences.putInt(BdSharedPreferences.playerAtkStats.key, atkStats)
-        adicionarPreferences.putInt(BdSharedPreferences.playerDefStats.key, defStats)
-        adicionarPreferences.putFloat(BdSharedPreferences.playerExpTotal.key, expTotal.toFloat())
+        adicionarPreferences.putInt(BdSharedPreferences.PLAYER_ATK_STATS.key, atkStats)
+        adicionarPreferences.putInt(BdSharedPreferences.PLAYER_DEF_STATS.key, defStats)
+        adicionarPreferences.putFloat(BdSharedPreferences.PLAYER_EXP_TOTAL.key, expTotal.toFloat())
         adicionarPreferences.apply()
     }
 

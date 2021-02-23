@@ -4,17 +4,13 @@ import android.animation.ObjectAnimator
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.stickwars.`class`.Boss
 import com.example.stickwars.`class`.Player
 import com.example.stickwars.classEnums.BdSharedPreferences
-import com.example.stickwars.classEnums.Chefoes
-import com.example.stickwars.classEnums.PlayerActions
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -114,14 +110,14 @@ class activity_upAtk : Fragment() {
 
     fun criandoObjetos(){
         Usuario = Player(
-            sharedPreferences.getString(BdSharedPreferences.playerNome.key, "undefined").toString()
+            sharedPreferences.getString(BdSharedPreferences.PLAYER_NOME.key, "undefined").toString()
         )
 
         Usuario.setarInfoSalva(
-            sharedPreferences.getInt(BdSharedPreferences.playerAtkStats.key, 999),
-            sharedPreferences.getInt(BdSharedPreferences.playerDefStats.key, 999),
-            sharedPreferences.getString(BdSharedPreferences.playerClasse.key, "undefined").toString(),
-            sharedPreferences.getFloat(BdSharedPreferences.playerExpTotal.key, 0.0F).toDouble()
+            sharedPreferences.getInt(BdSharedPreferences.PLAYER_ATK_STATS.key, 999),
+            sharedPreferences.getInt(BdSharedPreferences.PLAYER_DEF_STATS.key, 999),
+            sharedPreferences.getString(BdSharedPreferences.PLAYER_CLASSE.key, "undefined").toString(),
+            sharedPreferences.getFloat(BdSharedPreferences.PLAYER_EXP_TOTAL.key, 0.0F).toDouble()
         )
 
         Usuario.salvarDadosPlayer(adicionarPreferences)

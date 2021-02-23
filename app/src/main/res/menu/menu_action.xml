@@ -3,7 +3,6 @@
 
     <item
         android:title="Sair"
-        android:icon="@drawable/ic_baseline_home_24"
         android:id="@+id/itemSair"
         />
 

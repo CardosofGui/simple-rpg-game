@@ -28,11 +28,11 @@ class Boss(nome: String,
     }
 
     fun salvarDadosBoss(adicionarPreferences : SharedPreferences.Editor){
-        adicionarPreferences.putString(BdSharedPreferences.bossNome.key, nome).toString()
-        adicionarPreferences.putInt(BdSharedPreferences.bossAtkStats.key, atkStats)
-        adicionarPreferences.putInt(BdSharedPreferences.bossDefStats.key, defStats)
-        adicionarPreferences.putInt(BdSharedPreferences.bossNivel.key, nivelBoss)
-        adicionarPreferences.putBoolean(BdSharedPreferences.bossDerrotado.key, derrotado)
+        adicionarPreferences.putString(BdSharedPreferences.BOSS_NOME.key, nome).toString()
+        adicionarPreferences.putInt(BdSharedPreferences.BOSS_ATK_STATS.key, atkStats)
+        adicionarPreferences.putInt(BdSharedPreferences.BOSS_DEF_STATS.key, defStats)
+        adicionarPreferences.putInt(BdSharedPreferences.BOSS_NIVEL.key, nivelBoss)
+        adicionarPreferences.putBoolean(BdSharedPreferences.BOSS_DERROTADO.key, derrotado)
         adicionarPreferences.apply()
     }
 

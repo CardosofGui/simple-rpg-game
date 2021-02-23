@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_inicial"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -11,15 +12,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Stick Wars"
+        android:fontFamily="@font/archivo_black"
+        android:text="RPG CLICKER"
+        android:textColor="#000000"
         android:textSize="32sp" />
 
     <EditText
         android:id="@+id/edtUsuario"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/archivo_black"
         android:hint="Digite um Usuario"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="#000000" />
 
     <Spinner
         android:id="@+id/spnPersonagem"

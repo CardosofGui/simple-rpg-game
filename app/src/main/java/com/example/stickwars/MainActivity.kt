@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         adicionarPreferences = sharedPreferences.edit()
 
 
-        verificaAutenticacao(sharedPreferences.getBoolean(BdSharedPreferences.usuarioLogado.key, false))
+        verificaAutenticacao(sharedPreferences.getBoolean(BdSharedPreferences.USUARIO_LOGADO.key, false))
 
         // Criando o spinner
         val personagens = arrayOf("Escolha seu personagem...", "Guerreiro", "Arqueiro", "Mago")
@@ -99,8 +99,8 @@ class MainActivity : AppCompatActivity() {
             if(edtUsuario.getText().toString().isEmpty() || personagemSelecionado.isNullOrEmpty()){
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_LONG).show()
             }else{
-                adicionarPreferences.putString(BdSharedPreferences.playerNome.key, edtUsuario.getText().toString())
-                adicionarPreferences.putString(BdSharedPreferences.playerClasse.key, personagemSelecionado)
+                adicionarPreferences.putString(BdSharedPreferences.PLAYER_NOME.key, edtUsuario.getText().toString())
+                adicionarPreferences.putString(BdSharedPreferences.PLAYER_CLASSE.key, personagemSelecionado)
                 adicionarPreferences.apply()
                 startActivity(intent)
             }

@@ -67,7 +67,7 @@ class activity_stats : Fragment() {
         sharedPreferences = requireContext().getSharedPreferences("Dados", Context.MODE_PRIVATE)
         adicionarPreferences = sharedPreferences.edit()
 
-        criandoObjetos(sharedPreferences.getBoolean(BdSharedPreferences.usuarioLogado.key, false))
+        criandoObjetos(sharedPreferences.getBoolean(BdSharedPreferences.USUARIO_LOGADO.key, false))
 
 
         setarTextos()
@@ -96,27 +96,27 @@ class activity_stats : Fragment() {
 
 
     fun setarTextos(){
-        txtStats.setText(String.format("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Exp. Total: %.1f", Usuario.expTotal))
-        txtInfo.setText("Bem vindo ${Usuario.nome} - Classe ${Usuario.classe}")
+        txtStats.setText(String.format("Atk: ${Usuario.atkStats} Def: ${Usuario.defStats} Level: %.1f", Usuario.expTotal))
+        txtInfo.setText("${Usuario.classe} ${Usuario.nome}")
     }
 
     fun criandoObjetos(logado : Boolean){
         if(logado){
 
             Usuario = Player(
-                sharedPreferences.getString(BdSharedPreferences.playerNome.key, "undefined").toString()
+                sharedPreferences.getString(BdSharedPreferences.PLAYER_NOME.key, "undefined").toString()
             )
             Usuario.setarInfoSalva(
-                sharedPreferences.getInt(BdSharedPreferences.playerAtkStats.key, 999),
-                sharedPreferences.getInt(BdSharedPreferences.playerDefStats.key, 999),
-                sharedPreferences.getString(BdSharedPreferences.playerClasse.key, "undefined").toString(),
-                sharedPreferences.getFloat(BdSharedPreferences.playerExpTotal.key, 0.0F).toDouble()
+                sharedPreferences.getInt(BdSharedPreferences.PLAYER_ATK_STATS.key, 999),
+                sharedPreferences.getInt(BdSharedPreferences.PLAYER_DEF_STATS.key, 999),
+                sharedPreferences.getString(BdSharedPreferences.PLAYER_CLASSE.key, "undefined").toString(),
+                sharedPreferences.getFloat(BdSharedPreferences.PLAYER_EXP_TOTAL.key, 0.0F).toDouble()
             )
             Usuario.atualizarImagemClasse(imgClass)
 
         }else{
-            val classe: String = sharedPreferences.getString(BdSharedPreferences.playerClasse.key, "undefined").toString()
-            val nome: String = sharedPreferences.getString(BdSharedPreferences.playerNome.key, "undefined").toString()
+            val classe: String = sharedPreferences.getString(BdSharedPreferences.PLAYER_CLASSE.key, "undefined").toString()
+            val nome: String = sharedPreferences.getString(BdSharedPreferences.PLAYER_NOME.key, "undefined").toString()
 
             Usuario = Player(nome)
             Usuario.setarClasse(classe, imgClass)
