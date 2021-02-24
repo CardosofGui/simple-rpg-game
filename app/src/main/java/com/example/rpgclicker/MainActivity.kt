@@ -35,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         sharedPreferences = getSharedPreferences("Dados", Context.MODE_PRIVATE)
         adicionarPreferences = sharedPreferences.edit()
 
-
         verificaAutenticacao(sharedPreferences.getBoolean(BdSharedPreferences.USUARIO_LOGADO.key, false))
 
         // Criando o spinner
