@@ -1,4 +1,4 @@
-package com.example.stickwars
+package com.example.rpgclicker
 
 import org.junit.Test
 

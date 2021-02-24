@@ -1,4 +1,4 @@
-package com.example.stickwars
+package com.example.rpgclicker
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.ActionBar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -50,6 +49,7 @@ class bottom_navigation : AppCompatActivity() {
 
                 val intent = Intent(this,  MainActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         }
 

@@ -1,4 +1,4 @@
-package com.example.stickwars
+package com.example.rpgclicker
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,10 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.stickwars.`class`.Boss
-import com.example.stickwars.`class`.Player
-import com.example.stickwars.classEnums.BdSharedPreferences
-import com.example.stickwars.classEnums.Chefoes
+import com.example.rpgclicker.`class`.Boss
+import com.example.rpgclicker.`class`.Player
+import com.example.rpgclicker.classEnums.BdSharedPreferences
+import com.example.rpgclicker.classEnums.Chefoes
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -122,17 +122,16 @@ class activity_stats : Fragment() {
             Usuario.setarClasse(classe, imgClass)
 
             Chefao = Boss(
-                Chefoes.Chef1.nomeChefao,
-                Chefoes.Chef1.atkStats,
-                Chefoes.Chef1.defStats,
-                Chefoes.Chef1.nivelBoss,
-                Chefoes.Chef1.derrotado)
+                Chefoes.CHEF_1.nomeChefao,
+                Chefoes.CHEF_1.atkStats,
+                Chefoes.CHEF_1.defStats,
+                Chefoes.CHEF_1.nivelBoss)
 
             adicionarPreferences.putBoolean("UsuarioLogado", true)
             adicionarPreferences.apply()
 
-            Usuario.salvarDadosPlayer(adicionarPreferences)
-            Chefao.salvarDadosBoss(adicionarPreferences)
+            Usuario.salvarDados(adicionarPreferences)
+            Chefao.salvarDados(adicionarPreferences)
         }
     }
 

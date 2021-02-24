@@ -1,4 +1,4 @@
-package com.example.stickwars.classEnums
+package com.example.rpgclicker.classEnums
 
 enum class BdSharedPreferences(val key: String) {
     USUARIO_LOGADO("UsuarioLogado"),
@@ -10,6 +10,5 @@ enum class BdSharedPreferences(val key: String) {
     BOSS_NOME("bossNome"),
     BOSS_ATK_STATS("bossAtkStats"),
     BOSS_DEF_STATS("bossDefStats"),
-    BOSS_NIVEL("bossNivel"),
-    BOSS_DERROTADO("bossDerrotado")
+    BOSS_NIVEL("bossNivel")
 }

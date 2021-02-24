@@ -1,4 +1,4 @@
-package com.example.stickwars
+package com.example.rpgclicker
 
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -8,11 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ProgressBar
-import android.widget.TextView
-import com.example.stickwars.`class`.Player
-import com.example.stickwars.classEnums.BdSharedPreferences
+import android.widget.*
+import com.example.rpgclicker.`class`.Player
+import com.example.rpgclicker.classEnums.BdSharedPreferences
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,18 +19,17 @@ private const val ARG_PARAM2 = "param2"
 
 /**
  * A simple [Fragment] subclass.
- * Use the [activity_upDef.newInstance] factory method to
+ * Use the [activity_upAtk.newInstance] factory method to
  * create an instance of this fragment.
  */
-class activity_upDef : Fragment() {
+class activity_upAtk : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
-    lateinit var btnUpgradeDef : Button
+    lateinit var btnUpgradeAtk : Button
     lateinit var progBarLvlUp : ProgressBar
     lateinit var txtTitle : TextView
-
 
     lateinit var Usuario: Player
 
@@ -52,9 +49,9 @@ class activity_upDef : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val v = inflater.inflate(R.layout.fragment_activity_up_def, container, false)
+        val v = inflater.inflate(R.layout.fragment_activity_up_atk, container, false)
 
-        btnUpgradeDef = v.findViewById(R.id.btnUpgradeDef)
+        btnUpgradeAtk = v.findViewById(R.id.btnUpgradeAtk)
         progBarLvlUp = v.findViewById(R.id.progBarLvlUp)
         txtTitle = v.findViewById(R.id.txtTitle)
 
@@ -68,18 +65,19 @@ class activity_upDef : Fragment() {
         criandoObjetos()
         atualizarTexto()
 
-        btnUpgradeDef.setOnClickListener {
+        btnUpgradeAtk.setOnClickListener {
             clickCount++
 
             if(clickCount == 15){
                 ObjectAnimator.ofInt(progBarLvlUp, "progress", 0).setDuration(0).start()
-                Usuario.evoluirDefesa()
-                Usuario.salvarDadosPlayer(adicionarPreferences)
+                Usuario.evoluirForca()
+                Usuario.salvarDados(adicionarPreferences)
                 clickCount = 0
                 atualizarTexto()
             }else{
                 ObjectAnimator.ofInt(progBarLvlUp, "progress", clickCount).setDuration(100).start()
             }
+
         }
 
         return v
@@ -92,12 +90,12 @@ class activity_upDef : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment activity_upDef.
+         * @return A new instance of fragment activity_upAtk.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            activity_upDef().apply {
+            activity_upAtk().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -107,7 +105,7 @@ class activity_upDef : Fragment() {
 
 
     fun atualizarTexto(){
-        txtTitle.setText("Evoluindo Defesa: ${Usuario.defStats}")
+        txtTitle.setText("Evoluindo Ataque: ${Usuario.atkStats}")
     }
 
     fun criandoObjetos(){
@@ -122,8 +120,6 @@ class activity_upDef : Fragment() {
             sharedPreferences.getFloat(BdSharedPreferences.PLAYER_EXP_TOTAL.key, 0.0F).toDouble()
         )
 
-        Usuario.salvarDadosPlayer(adicionarPreferences)
+        Usuario.salvarDados(adicionarPreferences)
     }
-
-
 }

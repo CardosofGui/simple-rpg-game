@@ -1,4 +1,4 @@
-package com.example.stickwars
+package com.example.rpgclicker
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.stickwars.classEnums.BdSharedPreferences
+import com.example.rpgclicker.classEnums.BdSharedPreferences
 
 class MainActivity : AppCompatActivity() {
 
@@ -79,7 +79,6 @@ class MainActivity : AppCompatActivity() {
                     ) {
                        personagemSelecionado = personagens.get(position)
                     }
-
                 }
 
                 return view
@@ -103,6 +102,7 @@ class MainActivity : AppCompatActivity() {
                 adicionarPreferences.putString(BdSharedPreferences.PLAYER_CLASSE.key, personagemSelecionado)
                 adicionarPreferences.apply()
                 startActivity(intent)
+                finish()
             }
         }
     }
@@ -112,6 +112,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,  bottom_navigation::class.java)
             Toast.makeText(this, "Usuario logado", Toast.LENGTH_LONG).show()
             startActivity(intent)
+            finish()
         }else{
             Toast.makeText(this, "Usuario não logado", Toast.LENGTH_LONG).show()
         }
