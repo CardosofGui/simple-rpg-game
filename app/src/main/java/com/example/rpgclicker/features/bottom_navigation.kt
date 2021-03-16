@@ -3,7 +3,6 @@ package com.example.rpgclicker.features
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -11,11 +10,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.rpgclicker.features.telaInicial.MainActivity
 import com.example.rpgclicker.R
+import com.example.rpgclicker.base.BaseActivity
+import com.example.rpgclicker.features.telaInicial.MainActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.android.synthetic.main.activity_main.*
 
-class bottom_navigation : AppCompatActivity() {
+class bottom_navigation : BaseActivity() {
 
     lateinit var sharedPreferences: SharedPreferences
     lateinit var adicionarPreferences: SharedPreferences.Editor
@@ -23,6 +24,8 @@ class bottom_navigation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bottom_navigation)
+
+        setupToolbar(toolbar, "Teste")
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController = findNavController(R.id.fragment)
@@ -36,8 +39,6 @@ class bottom_navigation : AppCompatActivity() {
 
 
         bottomNavigation.setupWithNavController(navController)
-
-
     }
 
     // Criar menu de items na toolbar
