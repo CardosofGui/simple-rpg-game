@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/activity_stats"
-        android:name="com.example.rpgclicker.activity_stats"
+        android:name="com.example.rpgclicker.features.activity_stats"
         android:label="Stats"
         tools:layout="@layout/fragment_activity_stats" />
     <fragment
         android:id="@+id/activity_upAtk"
-        android:name="com.example.rpgclicker.activity_upAtk"
+        android:name="com.example.rpgclicker.features.activity_upAtk"
         android:label="Melhorar Ataque"
         tools:layout="@layout/fragment_activity_up_atk" />
     <fragment
         android:id="@+id/activity_upDef"
-        android:name="com.example.rpgclicker.activity_upDef"
+        android:name="com.example.rpgclicker.features.activity_upDef"
         android:label="Melhorar Defesa"
         tools:layout="@layout/fragment_activity_up_def" />
     <fragment
         android:id="@+id/activity_bossFight"
-        android:name="com.example.rpgclicker.activity_bossFight"
+        android:name="com.example.rpgclicker.features.activity_bossFight"
         android:label="Enfrentando Chefão"
         tools:layout="@layout/fragment_activity_boss_fight" />
 

@@ -1,11 +1,12 @@
-package com.example.rpgclicker.`class`
+package com.example.rpgclicker.model.objClass
 
 import android.content.SharedPreferences
 import android.widget.*
-import com.example.rpgclicker.classEnums.BdSharedPreferences
-import com.example.rpgclicker.classEnums.Classes
+import com.example.rpgclicker.model.enums.BdSharedPreferences
+import com.example.rpgclicker.model.enums.Classes
+import com.example.rpgclicker.model.objClass.Personagem
 
-class Player(nome: String ):Personagem(nome) {
+class Player(nome: String ): Personagem(nome) {
 
     override var atkStats: Int = 0
     override var defStats: Int = 0

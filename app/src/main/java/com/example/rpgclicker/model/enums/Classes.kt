@@ -1,4 +1,4 @@
-package com.example.rpgclicker.classEnums
+package com.example.rpgclicker.model.enums
 
 import com.example.rpgclicker.R
 

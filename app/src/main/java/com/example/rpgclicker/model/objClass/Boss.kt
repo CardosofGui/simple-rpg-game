@@ -1,10 +1,10 @@
-package com.example.rpgclicker.`class`
+package com.example.rpgclicker.model.objClass
 
 import android.content.Context
 import android.content.SharedPreferences
 import android.widget.Toast
-import com.example.rpgclicker.classEnums.BdSharedPreferences
-import com.example.rpgclicker.classEnums.Chefoes
+import com.example.rpgclicker.model.enums.BdSharedPreferences
+import com.example.rpgclicker.model.enums.Chefoes
 
 class Boss(nome: String,
            override var atkStats: Int,

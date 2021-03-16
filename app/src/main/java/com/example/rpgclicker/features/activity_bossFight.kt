@@ -1,4 +1,4 @@
-package com.example.rpgclicker
+package com.example.rpgclicker.features
 
 import android.animation.ObjectAnimator
 import android.content.Context
@@ -13,9 +13,10 @@ import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
-import com.example.rpgclicker.`class`.Boss
-import com.example.rpgclicker.`class`.Player
-import com.example.rpgclicker.classEnums.BdSharedPreferences
+import com.example.rpgclicker.R
+import com.example.rpgclicker.model.objClass.Boss
+import com.example.rpgclicker.model.objClass.Player
+import com.example.rpgclicker.model.enums.BdSharedPreferences
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

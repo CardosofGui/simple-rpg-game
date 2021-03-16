@@ -1,4 +1,4 @@
-package com.example.rpgclicker
+package com.example.rpgclicker.features
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,10 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.example.rpgclicker.`class`.Boss
-import com.example.rpgclicker.`class`.Player
-import com.example.rpgclicker.classEnums.BdSharedPreferences
-import com.example.rpgclicker.classEnums.Chefoes
+import com.example.rpgclicker.R
+import com.example.rpgclicker.model.objClass.Boss
+import com.example.rpgclicker.model.objClass.Player
+import com.example.rpgclicker.model.enums.BdSharedPreferences
+import com.example.rpgclicker.model.enums.Chefoes
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -104,7 +105,8 @@ class activity_stats : Fragment() {
         if(logado){
 
             Usuario = Player(
-                sharedPreferences.getString(BdSharedPreferences.PLAYER_NOME.key, "undefined").toString()
+                sharedPreferences.getString(BdSharedPreferences.PLAYER_NOME.key, "undefined")
+                    .toString()
             )
             Usuario.setarInfoSalva(
                 sharedPreferences.getInt(BdSharedPreferences.PLAYER_ATK_STATS.key, 999),
@@ -125,7 +127,8 @@ class activity_stats : Fragment() {
                 Chefoes.CHEF_1.nomeChefao,
                 Chefoes.CHEF_1.atkStats,
                 Chefoes.CHEF_1.defStats,
-                Chefoes.CHEF_1.nivelBoss)
+                Chefoes.CHEF_1.nivelBoss
+            )
 
             adicionarPreferences.putBoolean("UsuarioLogado", true)
             adicionarPreferences.apply()

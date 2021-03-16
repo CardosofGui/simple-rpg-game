@@ -5,37 +5,51 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_inicial"
-    android:gravity="center"
     android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
+    tools:context=".features.telaInicial.MainActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/archivo_black"
-        android:text="RPG CLICKER"
-        android:textColor="#000000"
-        android:textSize="32sp" />
+        android:background="@color/black"
+        android:id="@+id/toolbar"
+        />
 
-    <EditText
-        android:id="@+id/edtUsuario"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/archivo_black"
-        android:hint="Digite um Usuario"
-        android:textAlignment="center"
-        android:textColor="#000000" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
 
-    <Spinner
-        android:id="@+id/spnPersonagem"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:padding="20dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/archivo_black"
+            android:text="RPG CLICKER"
+            android:textColor="#000000"
+            android:textSize="32sp" />
 
-    <Button
-        android:id="@+id/btnIniciar"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Iniciar Jogo" />
+        <EditText
+            android:id="@+id/edtUsuario"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/archivo_black"
+            android:hint="Digite um Usuario"
+            android:textAlignment="center"
+            android:textColor="#000000" />
+
+        <Spinner
+            android:id="@+id/spnPersonagem"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:padding="20dp" />
+
+        <Button
+            android:id="@+id/btnIniciar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="Iniciar Jogo" />
+
+
+    </LinearLayout>
 
 </LinearLayout>

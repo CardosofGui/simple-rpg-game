@@ -1,4 +1,4 @@
-package com.example.rpgclicker
+package com.example.rpgclicker.features
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,8 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.rpgclicker.features.telaInicial.MainActivity
+import com.example.rpgclicker.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class bottom_navigation : AppCompatActivity() {
@@ -24,7 +26,12 @@ class bottom_navigation : AppCompatActivity() {
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         val navController = findNavController(R.id.fragment)
-        val appBarConfiguration = AppBarConfiguration(setOf(R.id.activity_stats, R.id.activity_upAtk, R.id.activity_upDef, R.id.activity_bossFight))
+        val appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.activity_stats,
+            R.id.activity_upAtk,
+            R.id.activity_upDef,
+            R.id.activity_bossFight
+        ))
         setupActionBarWithNavController(navController, appBarConfiguration)
 
 
@@ -33,6 +40,7 @@ class bottom_navigation : AppCompatActivity() {
 
     }
 
+    // Criar menu de items na toolbar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_action, menu)
         return true

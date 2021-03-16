@@ -1,4 +1,4 @@
-package com.example.rpgclicker.`class`
+package com.example.rpgclicker.model.objClass
 
 import android.content.SharedPreferences
 

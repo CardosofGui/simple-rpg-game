@@ -1,4 +1,4 @@
-package com.example.rpgclicker.classEnums
+package com.example.rpgclicker.model.enums
 
 enum class Chefoes (val nomeChefao: String, val atkStats: Int, val defStats: Int, val nivelBoss: Int) {
     CHEF_1("Jinpachi", 5, 5,   0),

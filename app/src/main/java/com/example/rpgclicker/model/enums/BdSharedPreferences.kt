@@ -1,4 +1,4 @@
-package com.example.rpgclicker.classEnums
+package com.example.rpgclicker.model.enums
 
 enum class BdSharedPreferences(val key: String) {
     USUARIO_LOGADO("UsuarioLogado"),

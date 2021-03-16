@@ -1,4 +1,4 @@
-package com.example.rpgclicker
+package com.example.rpgclicker.features.telaInicial
 
 import android.content.Context
 import android.content.Intent
@@ -8,12 +8,18 @@ import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.example.rpgclicker.classEnums.BdSharedPreferences
+import com.example.rpgclicker.R
+import com.example.rpgclicker.base.BaseActivity
+import com.example.rpgclicker.model.enums.BdSharedPreferences
+import com.example.rpgclicker.features.bottom_navigation
+import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     lateinit var btnIniciar : Button
     lateinit var edtUsuario : EditText
@@ -26,6 +32,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        setupToolbar(toolbar, "RPG Clicker")
 
         // Inicializando variaveis e identificiando seus IDs
         btnIniciar = findViewById(R.id.btnIniciar)
@@ -115,5 +123,21 @@ class MainActivity : AppCompatActivity() {
         }else{
             Toast.makeText(this, "Usuario não logado", Toast.LENGTH_LONG).show()
         }
+    }
+
+    // Criar menu de items na toolbar
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.itemCarregarJogo -> {
+                Toast.makeText(baseContext, "Click carregar jogo", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }
